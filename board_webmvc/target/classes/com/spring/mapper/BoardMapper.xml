@@ -3,14 +3,49 @@
 <mapper namespace="com.spring.mapper.BoardMapper">
 
 	<!-- 전체 조회 -->
-	<select id="list" resultType="com.spring.domain.BoardDTO">
+	<!-- <select id="list" resultType="com.spring.domain.BoardDTO">
 		select bno,title,writer,regdate,updatedate from spring_board order by bno desc, regdate desc
+	</select> -->
+	
+	<select id="list" resultType="com.spring.domain.BoardDTO">
+		<![CDATA[ 
+		select bno,title,writer,regdate,updatedate
+			from (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn,bno,title,writer,regdate,updatedate
+			from spring_board
+			where rownum <= (#{pageNum}*#{amount}))
+			where rn > ((#{pageNum}-1)*#{amount})
+		]]>
 	</select>
+	
+	<!-- 전체 게시물 개수 -->
+	<select id="totalCnt" resultType="java.lang.Integer">
+		select count(*) from spring_board
+	</select>
+	
 	
 	<!-- 글 등록 -->
 	<insert id="insert">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>
+	
 		insert into spring_board(bno,title,content,writer)
-		values(seq_board.nextval,#{title},#{content},#{writer})
+		values(#{bno},#{title},#{content},#{writer})
 	</insert>
 
+	<!-- 특정 번호 조회 -->
+	<select id="get" resultType="com.spring.domain.BoardDTO">
+		select bno,title,content,writer from spring_board where bno=${bno}
+	</select>
+	
+	<!-- bno 일치시 글 수정(title,content,updatedate -->
+	<update id="update">
+		update spring_board set title=${title}, content=${content}, updatedate=sysdate where bno=${bno}
+	</update>
+	
+	<!-- bno 일치시 글 삭제 -->
+	<delete id="remove">
+		delete from spring_board where bno=${bno}
+	</delete>
+	
 </mapper>
