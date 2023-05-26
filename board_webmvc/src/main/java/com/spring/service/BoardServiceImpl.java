@@ -9,39 +9,41 @@ import com.spring.domain.BoardDTO;
 import com.spring.domain.Criteria;
 import com.spring.mapper.BoardMapper;
 
+
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardMapper mapper;
 	
+	
 	@Override
-	public List<BoardDTO> getList(Criteria cri) {
+	public List<BoardDTO> getList(Criteria cri) {		
 		return mapper.list(cri);
 	}
-	
+
 	@Override
-	public boolean insert(BoardDTO dto) {
+	public boolean insert(BoardDTO dto) {		
 		return mapper.insert(dto)==1?true:false;
 	}
-	
+
 	@Override
-	public BoardDTO getRow(int bno) {
+	public BoardDTO getRow(int bno) {		
 		return mapper.get(bno);
 	}
-
+	
 	@Override
-	public boolean update(BoardDTO dto) {
+	public boolean update(BoardDTO dto) {		
 		return mapper.update(dto)==1?true:false;
 	}
-
 	@Override
-	public boolean remove(int bno) {
-		return mapper.remove(bno)==1?true:false;
+	public boolean delete(int bno) {		
+		return mapper.delete(bno)==1?true:false;
 	}
 
 	@Override
-	public int getTotalCnt() {
-		return mapper.totalCnt();
+	public int getTotalCnt(Criteria cri) {		
+		return mapper.totalCnt(cri);
 	}
 }
+
