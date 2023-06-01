@@ -5,16 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resurces/css/upload.css" />
-<link rel="stylesheet" href="/resurces/css/lightbox.min.css" />
-<script src="/resurces/js/jquery.min.js"></script>
-<script src="/resurces/js/lightbox.min.js"></script>
-
+<link rel="stylesheet" href="/resources/css/upload.css" />
+<link rel="stylesheet" href="/resources/css/lightbox.min.css" />
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/lightbox.min.js"></script>
 </head>
 <body>
 <h1>Upload Ajax</h1>
 <div class="uploadDiv">
-	<input type="file" name="uploadFile" id="uploadFile" accept="image/*. /txt" multiple/>
+	<input type="file" name="uploadFile" id="uploadFile" accept="image/*, .txt" multiple/>
 </div>
 <button type="submit" id="uploadBtn">upload</button>
 <div class="uploadResult">
