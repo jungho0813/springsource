@@ -1,9 +1,12 @@
 package com.spring.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,4 +35,17 @@ public class SecurityController {
 		model.addAttribute("error","아이디와 비밀번호를 확인해주세요");
 		return "/security/login";
 	}
+	
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		return "/security/denied";
+	}
+	
+	@GetMapping("/auth")
+	@ResponseBody
+	public Authentication auth() {
+		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	
 }

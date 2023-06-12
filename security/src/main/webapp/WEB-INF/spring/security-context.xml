@@ -15,6 +15,7 @@
 	<security:http>
 		<!-- 폼 로그인 인증 방식선택 -->
 		<security:form-login login-page="/security/login" authentication-failure-url="/security/login-error" authentication-success-handler-ref="customLoginSuccessHandler" />
+		<security:access-denied-handler error-page="/security/access-denied"/>
 		<security:logout invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
 		<security:intercept-url pattern="/security/userpage" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/security/adminpage" access="hasRole('ROLE_ADMIN')"/>
